@@ -1,0 +1,157 @@
+﻿@model SharedModels.DashboardData
+@using SharedModels;
+
+@{
+    ViewData["Title"] = "Live Trading Dashboard";
+    Layout = null; // או Layout = "_Layout"; אם אתה משתמש ב-Layout סטנדרטי
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="d-flex justify-content-between align-items-center mb-4 dashboard-header">
+            <h1 class="text-white">Live Trading Dashboard <span class="header-subtitle text-muted">Real-time currency pair monitoring and simulation</span></h1>
+            <div>
+                <button id="refreshBtn" class="btn btn-outline-light me-2"><i class="fas fa-sync-alt"></i> Refresh</button>
+                <button id="startSimulationBtn" class="btn btn-success"><i class="fas fa-play"></i> Start Simulation</button>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="card summary-card">
+                    <div class="card-body">
+                        <h6 class="card-title">Total Volume</h6>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="summary-value" id="total-volume">@(Model?.TotalVolume.ToString("N0") ?? "0")</div>
+                            <div class="summary-icon-bg">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="card summary-card">
+                    <div class="card-body">
+                        <h6 class="card-title">Average Change</h6>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="summary-value @(Model?.AverageChangePercentage >= 0 ? "up" : "down")" id="average-change">@(Model?.AverageChangePercentage.ToString("N2") ?? "0.00")%</div>
+                            <div class="summary-icon-bg">
+                                <i class="fas fa-chart-line @(Model?.AverageChangePercentage > 0 ? "up" : Model?.AverageChangePercentage < 0 ? "down" : "stable")"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="card summary-card">
+                    <div class="card-body">
+                        <h6 class="card-title">Total Active Pairs</h6>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="summary-value up" id="active-pairs">@(Model?.TotalActivePairs.ToString() ?? "0")</div> <div class="summary-icon-bg">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="card summary-card">
+                    <div class="card-body">
+                        <h6 class="card-title">Last Updated</h6>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="summary-value" id="last-updated">@(Model?.LastUpdated.ToLocalTime().ToString("HH:mm:ss") ?? "N/A")</div>
+                            <div class="summary-icon-bg">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            @foreach (var pair in Model.CurrencyPairs)
+            {
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="card currency-pair-card" id="card-@pair.OriginalId">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <h5 class="mb-0">@pair.PairName</h5>
+                                <small class="text-muted">@pair.BaseCurrencyAbbr/@pair.QuoteCurrencyAbbr</small>
+                            </div>
+                            <div class="pair-card-icon-bg">
+                                <i class="fas @(pair.Trend == TradeTrend.Up ? "fa-arrow-trend-up up" : pair.Trend == TradeTrend.Down ? "fa-arrow-trend-down down" : "fa-equals stable")" id="card-trend-icon-@pair.OriginalId"></i>
+                            </div>
+                        </div>
+                        <div class="rate" id="card-rate-@pair.OriginalId">@pair.CurrentRate.ToString("F4")</div>
+                        <div class="change-percentage @(pair.ChangePercentage >= 0 ? "up" : "down")" id="card-change-@pair.OriginalId">@((pair.ChangePercentage >= 0 ? "+" : "") + pair.ChangePercentage.ToString("F2"))%</div>
+                        <div class="d-flex justify-content-between min-max mt-3">
+                            <span>Min <span id="card-min-@pair.OriginalId">@pair.MinValue.ToString("F4")</span></span>
+                            <span>Max <span id="card-max-@pair.OriginalId">@pair.MaxValue.ToString("F4")</span></span>
+                        </div>
+                        <div class="text-muted volume mt-1">Volume: <span id="card-volume-@pair.OriginalId">@pair.Volume.ToString("N0")</span></div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title live-pairs-title"><span class="table-dot"></span> Live Currency Pairs</h5>
+                <div class="table-responsive">
+                    <table class="table table-dark table-hover">
+                        <thead>
+                            <tr>
+                                <th>Pair</th>
+                                <th class="current-rate-col">Current Rate</th>
+                                <th class="change-col">Change</th>
+                                <th class="min-value-col">Min</th>
+                                <th class="max-value-col">Max</th>
+                                <th class="volume-col">Volume</th>
+                                <th>Trend</th>
+                                <th class="last-update-col">Last Update</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tradesTableBody">
+                            @foreach (var pair in Model.CurrencyPairs)
+                            {
+                                <tr id="row-@pair.OriginalId">
+                                    <td>
+                                        <strong>@pair.PairName</strong><br />
+                                        <small class="text-muted">@pair.BaseCurrencyAbbr/@pair.QuoteCurrencyAbbr</small>
+                                    </td>
+                                    <td class="current-rate-col">@pair.CurrentRate.ToString("F4")</td>
+                                    <td class="change-col @(pair.ChangePercentage >= 0 ? "up" : "down")">@((pair.ChangePercentage >= 0 ? "+" : "") + pair.ChangePercentage.ToString("F2"))%</td>
+                                    <td class="min-value-col">@pair.MinValue.ToString("F4")</td>
+                                    <td class="max-value-col">@pair.MaxValue.ToString("F4")</td>
+                                    <td class="volume-col">@pair.Volume.ToString("N0")</td>
+                                    <td>
+                                        <i class="trend-icon fas @(pair.Trend == TradeTrend.Up ? "fa-arrow-trend-up up" : pair.Trend == TradeTrend.Down ? "fa-arrow-trend-down down" : "fa-equals stable")"></i>
+                                    </td>
+                                    <td class="last-update-col">@pair.LastUpdate.ToString("HH:mm:ss")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@microsoft/signalr@latest/dist/browser/signalr.min.js"></script>
+    <script src="~/js/site.js"></script>
+</body>
+</html>

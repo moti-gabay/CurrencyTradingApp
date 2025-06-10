@@ -1,0 +1,497 @@
+﻿/* General Body and Container Styling */
+body {
+    background-color: #1A1C20; /* Deep charcoal from screenshot */
+    color: #EAEAEA; /* Light grey for main text - זה נראה בסדר לרוב הטקסט הכללי */
+    font-family: 'Montserrat', sans-serif; /* Using Montserrat from Google Fonts */
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    font-size: 1rem;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+.dashboard-container {
+    padding: 30px; /* Increased padding */
+    max-width: 1550px; /* Wider to match screenshot proportions */
+    margin: 0 auto;
+}
+
+/* Header and Buttons */
+.dashboard-header {
+    margin-bottom: 40px; /* More space below header */
+}
+
+h1 {
+    color: #FFFFFF; /* נראה בסדר, הכותרת הראשית לבנה */
+    font-size: 2.3rem; /* Adjusted title size */
+    font-weight: 600; /* Semi-bold */
+    display: flex; /* To align subtitle vertically */
+    align-items: baseline;
+    gap: 15px; /* Space between title and subtitle */
+}
+
+.header-subtitle {
+    color: #8C8C8C !important; /* Muted grey for subtitle - זה נראה בסדר */
+    font-size: 0.95rem; /* Subtitle size */
+    font-weight: 400; /* Regular weight */
+}
+
+.btn {
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-outline-light {
+    color: #DDDDDD; /* Lighter grey for outline text - נראה בסדר */
+    border: 1px solid #444444; /* Darker, thin border */
+    background-color: transparent;
+}
+
+    .btn-outline-light:hover {
+        background-color: #333333; /* Darker hover background */
+        color: #FFFFFF;
+        border-color: #666666;
+    }
+
+.btn-success {
+    background-color: #008000; /* Darker, richer green for success */
+    border-color: #008000;
+    color: #FFFFFF;
+}
+
+    .btn-success:hover {
+        background-color: #006600; /* Even darker green on hover */
+        border-color: #006600;
+    }
+
+.btn-danger { /* הוספתי קלאס חדש עבור כפתור "Stop Simulation" */
+    background-color: #DC3545; /* אדום סטנדרטי של בוטסטראפ */
+    border-color: #DC3545;
+    color: #FFFFFF;
+}
+
+    .btn-danger:hover {
+        background-color: #C82333; /* אדום כהה יותר בהובר */
+        border-color: #C82333;
+    }
+
+
+/* Font Awesome specific classes for initial icons */
+.fa-sync-alt, .fa-play {
+    margin-right: 8px;
+}
+
+
+/* Card Styling - General */
+.card {
+    background-color: #272A30; /* Dark grey from screenshot */
+    border-radius: 15px; /* More rounded corners */
+    border: 1px solid #3A3E45; /* Subtle border */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Stronger, softer shadow */
+    margin-bottom: 30px; /* More space between cards */
+    padding: 25px; /* More internal padding */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    overflow: hidden; /* Ensure content respects border-radius */
+    position: relative; /* For icon background positioning */
+    /* וודא שכל טקסט בתוך כרטיס יורש צבע בהיר כברירת מחדל */
+    color: #EAEAEA; /* צבע ברירת מחדל לטקסט בתוך כרטיסים */
+}
+
+    .card:hover {
+        transform: translateY(-8px); /* Lift card more on hover */
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5); /* Stronger shadow on hover */
+    }
+
+.card-title {
+    color: #FFFFFF !important; /* Muted white for card titles - נראה בסדר */
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+/* Summary Card specific styling */
+.summary-card .card-body {
+    padding: 0; /* Remove default bootstrap padding to control precisely */
+}
+
+/* ****** תיקון 1: וודא שלטקסט תיאורתי בתוך summary-card יש צבע בהיר ****** */
+.summary-card p {
+    color: #BBBBBB; /* צבע לטקסט כמו "Total Volume", "Average Change" */
+    font-size: 0.95rem; /* גודל פונט דומה ל-card-title */
+    font-weight: 500;
+    margin-bottom: 5px; /* רווח קטן מתחת */
+}
+
+.summary-card h6.text-muted { /* הוספתי .text-muted לסלקטור */
+    color: #FFFFFF !important; /* הגדר צבע לבן מובהק עם !important */
+    font-size: 1.05rem; /* גודל פונט דומה ל-card-title */
+    font-weight: 500;
+    margin-bottom: 5px; /* רווח קטן מתחת */
+}
+/* ******************************************************************* */
+
+
+.summary-value {
+    font-size: 2.8rem; /* Larger font for main numbers */
+    font-weight: 700; /* Bolder font */
+    color: #FFFFFF; /* White for the value itself - זה בסדר */
+    line-height: 1; /* Tighten line height */
+}
+
+    .summary-value.up {
+        color: #00E676; /* Bright green similar to screenshot */
+    }
+
+    .summary-value.down {
+        color: #FF1744; /* Bright red similar to screenshot */
+    }
+
+/* Icons in summary cards - positioned in background */
+.summary-icon-bg {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    font-size: 3.5rem; /* Very large icons */
+    color: rgba(60, 60, 60, 0.5); /* Transparent dark grey - זהו צבע ברירת המחדל, לא צריך לשנות אותו פר אייקון אלא אם כן רוצים אפקט שונה */
+    line-height: 1; /* Prevent extra space */
+}
+
+    /* יש ליישם את הצבע לאייקונים הספציפיים, לא רק ל-bg הכללי.
+       כדאי לתת קלאסים ספציפיים לאייקונים ולצבע אותם.
+       במקרה של summary-icon-bg, האייקון מקבל את הצבע מה-filter: opacity(0.5)
+       אבל אם רוצים צבע בולט יותר, נצטרך להסיר את ה-filter: opacity או לתת צבע מלא.
+       אני מניח שאתה רוצה את האייקונים הגדולים האלה כרקע עדין. */
+
+    /* אם רוצים אייקונים צבעוניים בולטים יותר ברקע, יש להסיר את ה-filter: opacity
+       ולהגדיר צבע מלא לאייקון הספציפי. */
+
+    .summary-icon-bg .fa-dollar-sign {
+        color: #00BFFF; /* Deep sky blue for dollar sign */
+        /* filter: opacity(0.5); - נשאיר את זה כברירת מחדל מה-summary-icon-bg */
+    }
+
+    /* שינוי כאן: אנו רוצים שה-fa-chart-line יקבל צבע בהתאם לטרנד שלו (up/down).
+       בקוד ה-HTML הנוכחי, הוא מקבל את הקלאס 'up' או 'down'. */
+    .summary-icon-bg .fa-chart-line {
+        /* color: #6C757D; - נסיר את זה כי זה דורס את ה-up/down */
+        /* filter: opacity(0.5); - נשאיר את זה */
+    }
+
+        .summary-icon-bg .fa-chart-line.up { /* הוספתי כדי לתת צבע ירוק לאייקון כאשר הוא 'up' */
+            color: #00E676;
+        }
+
+        .summary-icon-bg .fa-chart-line.down { /* הוספתי כדי לתת צבע אדום לאייקון כאשר הוא 'down' */
+            color: #FF1744;
+        }
+
+
+/* אלו נראים תקינים, אבל חשוב לוודא שקלאסי ה-Font Awesome קיימים עבור אייקוני הטרנד */
+/* .summary-icon-bg .fa-arrow-up { - אלו לא בשימוש ב-HTML עבור summary-card */
+/* .summary-icon-bg .fa-arrow-down { - אלו לא בשימוש ב-HTML עבור summary-card */
+
+
+/* Font Awesome 6 משתמש ב-fa-arrow-trend-up/down. אם אתה משתמש בגרסה ישנה יותר,
+        השאר את fa-arrow-up/down. הקוד ב-site.js תואם ל-fa-arrow-trend-up/down.
+        אני מניח שאתה משתמש ב-Font Awesome 6. */
+/* .summary-icon-bg .fa-arrow-trend-up { - אלו לא רלוונטיים לאייקוני סיכום אלא לכרטיסים */
+/* .summary-icon-bg .fa-arrow-trend-down { - אלו לא רלוונטיים לאייקוני סיכום אלא לכרטיסים */
+
+/* הוספתי קלאס .stable כללי לצבע יציב, וכדי שאייקונים ספציפיים יוכלו לרשת אותו. */
+.stable {
+    color: #AAAAAA; /* Grey for stable/neutral trend, או אפור יותר כהה: #6C757D */
+}
+
+.summary-icon-bg .fa-minus,
+.summary-icon-bg .fa-equals, /* אם תשנה ל-fa-equals */
+.summary-icon-bg .fa-chart-line.stable { /* וודא שאייקון ה-chart-line כשהוא stable גם מקבל צבע */
+    color: #6C757D; /* צבע אפור ניטרלי לאייקון הרקע */
+    /* filter: opacity(0.5); */
+}
+
+.summary-icon-bg .fa-chart-bar {
+    color: #FFD700; /* זהב/צהוב עבור גרף הבר (Active Pairs) */
+    /* filter: opacity(0.5); */
+}
+
+.summary-icon-bg .fa-clock { /* שעון אייקון עבור Last Updated */
+    color: #17A2B8; /* כחול-ירקרק עבור שעון */
+    /* filter: opacity(0.5); */
+}
+
+
+/* Individual Currency Pair Cards specific styling */
+.currency-pair-card h5 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #FFFFFF; /* הכותרת הראשית של זוג המטבעות (לדוגמה "US Dollar / Japanese Yen") - נראה בסדר */
+    margin-bottom: 5px;
+}
+
+.currency-pair-card small.text-muted {
+    color: #AAAAAA !important; /* Consistent muted grey for ה-Id (לדוגמה "USDJPY") - נראה בסדר */
+    font-size: 0.85rem;
+}
+
+.currency-pair-card .rate {
+    font-size: 3.8rem; /* Even larger rate */
+    font-weight: 700;
+    color: #FFFFFF; /* ערך ה-Rate עצמו (לדוגמה "151.3377") - נראה בסדר */
+    margin-top: 10px; /* Space above rate */
+    margin-bottom: 10px;
+    line-height: 1;
+}
+
+.currency-pair-card .change-percentage {
+    font-size: 1.25rem; /* Larger change percentage */
+    font-weight: 600;
+    margin-bottom: 15px; /* Space below */
+    /* הצבעים האדום/ירוק מוגדרים למטה, אז זה בסדר */
+}
+
+    .currency-pair-card .change-percentage.up {
+        color: #00E676; /* Bright green */
+    }
+
+    .currency-pair-card .change-percentage.down {
+        color: #FF1744; /* Bright red */
+    }
+
+.currency-pair-card .min-max {
+    margin-top: 15px;
+    font-size: 0.95rem;
+    color: #BBBBBB; /* צבע כללי לטקסט בתוך min-max (לדוגמה "Min", "Max") - נראה בסדר */
+    display: flex;
+    justify-content: space-between; /* Distribute min/max evenly */
+    width: 100%; /* Ensure it spans full width */
+}
+
+    .currency-pair-card .min-max span {
+        font-weight: 600;
+        color: #DDDDDD; /* צבע עבור הערכים של Min/Max - נראה בסדר */
+    }
+
+.currency-pair-card .volume {
+    font-size: 0.85rem;
+    color: #AAAAAA !important; /* צבע עבור ה-Volume - נראה בסדר */
+    margin-top: 5px;
+    font-weight: 400;
+}
+
+/* Icons in currency pair cards - positioned in background */
+.pair-card-icon-bg {
+    font-size: 2.5rem; /* Smaller icon than summary cards */
+    color: #555555; /* Darker grey - זהו צבע ברירת המחדל ללא טרנד */
+    filter: opacity(0.6); /* Slightly more opaque */
+    position: absolute; /* positioned relatively to .card */
+    top: 25px; /* Matches card padding */
+    right: 25px; /* Matches card padding */
+    transition: all 0.2s ease-in-out;
+}
+
+.currency-pair-card:hover .pair-card-icon-bg {
+    transform: translateY(-5px); /* Lift icon slightly on hover */
+    filter: opacity(0.8); /* Make it more visible on hover */
+}
+
+/* הספציפיות כאן חשובה: אייקון הטרנד בתוך pair-card-icon-bg יקבל את צבעו
+   בהתאם לקלאס 'up', 'down' או 'stable'. */
+.pair-card-icon-bg .up { /* Green for up trend */
+    color: #00E676;
+}
+
+.pair-card-icon-bg .down { /* Red for down trend */
+    color: #FF1744;
+}
+
+.pair-card-icon-bg .stable { /* Grey for neutral trend icon in pair card */
+    color: #AAAAAA;
+}
+
+/* גם כאן, וודא שקלאסי ה-Font Awesome תואמים ל-site.js */
+/* הספציפיות של הכללים למטה פחות חזקה מהכללים up/down/stable למעלה, אבל נשאיר אותם לשלמות */
+.pair-card-icon-bg .fa-arrow-trend-up {
+    color: #00E676; /* Green for up trend */
+}
+
+.pair-card-icon-bg .fa-arrow-trend-down {
+    color: #FF1744; /* Red for down trend */
+}
+
+.pair-card-icon-bg .fa-minus,
+.pair-card-icon-bg .fa-equals { /* גם אם תשנה ל-fa-equals */
+    color: #AAAAAA; /* Grey for neutral trend icon in pair card */
+}
+
+/* Table Styling */
+.table {
+    background-color: #272A30; /* Same as card background */
+    color: #EAEAEA; /* צבע כללי לטקסט בתוך הטבלה - זה מכסה הרבה */
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Matching card shadow */
+}
+
+    .table .card-body {
+        padding: 25px; /* Consistent padding with cards */
+    }
+
+.live-pairs-title {
+    color: #BBBBBB; /* נראה בסדר */
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin-bottom: 20px; /* Space below title */
+    display: flex;
+    align-items: center;
+}
+
+.table-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: #00E676; /* Green dot */
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.table thead th {
+    border-bottom: 1px solid #4A4F55;
+    color: #FFFFFF; /* כותרות עמודות הטבלה - נראה בסדר */
+    font-weight: 600;
+    padding: 15px 18px; /* More padding and horizontal adjustment */
+    font-size: 0.95rem;
+    text-transform: uppercase; /* Uppercase headers as in screenshot */
+}
+
+.table tbody tr {
+    border-bottom: 1px solid #3A3E45;
+    transition: background-color 0.2s ease;
+}
+
+    .table tbody tr:last-child {
+        border-bottom: none;
+    }
+
+.table tbody td {
+    padding: 15px 18px; /* More padding and horizontal adjustment */
+    vertical-align: middle;
+    font-size: 0.95rem; /* Slightly larger font for table cells */
+    /* ****** תיקון 2: וודא שלתאי הטבלה יש צבע טקסט בהיר ****** */
+    color: #EAEAEA; /* לוודא שתוכן התא לבן */
+    /* ****************************************************** */
+}
+
+.table-hover tbody tr:hover {
+    background-color: #383B40;
+}
+
+.table strong {
+    color: #FFFFFF; /* שם זוג המטבע בטבלה (לדוגמה "US Dollar / Japanese Yen") - נראה בסדר */
+    font-weight: 600; /* Bolder pair name */
+}
+
+.table small.text-muted {
+    color: #AAAAAA !important; /* קיצור המטבע בטבלה (לדוגמה "USDJPY") - נראה בסדר */
+    font-size: 0.8rem; /* Smaller abbreviation */
+}
+
+/* Table specific change percentage and trend icons */
+.table .change-col {
+    font-weight: 500;
+    /* הצבעים האדום/ירוק מוגדרים למטה, אז זה בסדר */
+}
+
+    .table .change-col.up {
+        color: #00E676;
+    }
+
+    .table .change-col.down {
+        color: #FF1744;
+    }
+
+.table .current-rate-col {
+    font-weight: 600; /* Bolder current rate - נראה בסדר */
+    color: #FFFFFF; /* וודא שצבע ה-rate לבן גם בטבלה */
+}
+
+
+.table .trend-icon {
+    font-size: 1.1rem; /* Consistent icon size */
+    vertical-align: middle;
+}
+
+    .table .trend-icon.up {
+        color: #00E676;
+    }
+
+    .table .trend-icon.down {
+        color: #FF1744;
+    }
+
+    .table .trend-icon.stable { /* Changed from .neutral to .stable for consistency */
+        color: #AAAAAA; /* Grey for neutral trend */
+    }
+
+/* Last Update column styling */
+.last-update-col {
+    color: #BBBBBB; /* צבע עמודת Last Update - נראה בסדר */
+    font-size: 0.85rem; /* Consistent font size */
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) { /* For medium and small devices */
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .header-subtitle {
+        display: none; /* Hide subtitle on smaller screens */
+    }
+
+    .summary-value {
+        font-size: 2.2rem;
+    }
+
+    .summary-icon-bg {
+        font-size: 3rem;
+    }
+
+    .currency-pair-card .rate {
+        font-size: 3rem;
+    }
+
+    .pair-card-icon-bg {
+        font-size: 2.2rem;
+    }
+
+    .card {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 767px) { /* For small devices */
+    .dashboard-container {
+        padding: 15px;
+    }
+
+    .btn {
+        padding: 8px 15px;
+        font-size: 0.85rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+
+    .table thead th, .table tbody td {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+    }
+}

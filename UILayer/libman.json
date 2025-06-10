@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "defaultProvider": "unpkg",
+  "libraries": [
+    {
+      "library": "jquery@3.7.1",
+      "destination": "wwwroot/lib/jquery/"
+    },
+    {
+      "library": "bootstrap@5.3.3",
+      "destination": "wwwroot/lib/bootstrap/"
+    },
+    {
+      "library": "@microsoft/signalr@7.0.0", // או 8.0.0 אם אתה ב-.NET 8, או גרסה ספציפית אחרת
+      "destination": "wwwroot/lib/microsoft/signalr/dist/browser/" // זה הנתיב שאתה מצפה לו
+    }
+  ]
+}
